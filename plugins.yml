@@ -5,14 +5,14 @@ algolia_search:
 instantsearch:
   name: instantsearch.js
   file: dist/instantsearch.production.min.js
-  version: 4.56.5
+  version: 4.60.0
 docsearch_js:
-  name: '@docsearch/js'
+  name: "@docsearch/js"
   other_name: docsearch-js
   file: dist/umd/index.js
   version: 3.5.1
 docsearch_css:
-  name: '@docsearch/css'
+  name: "@docsearch/css"
   other_name: docsearch-css
   file: dist/style.css
   version: 3.5.1
@@ -31,7 +31,7 @@ valine:
 twikoo:
   name: twikoo
   file: dist/twikoo.all.min.js
-  version: 1.6.17
+  version: 1.6.25
 waline_js:
   name: "@waline/client"
   file: dist/waline.js
@@ -72,7 +72,7 @@ katex_copytex:
 mermaid:
   name: mermaid
   file: dist/mermaid.min.js
-  version: 9.1.7
+  version: 10.2.4
 canvas_ribbon:
   name: butterfly-extsrc
   file: dist/canvas-ribbon.min.js
@@ -104,7 +104,7 @@ ClickShowText:
 lazyload:
   name: vanilla-lazyload
   file: dist/lazyload.iife.min.js
-  version: 17.3.1
+  version: 17.8.5
 instantpage:
   name: instant.page
   file: instantpage.js
@@ -112,7 +112,7 @@ instantpage:
 typed:
   name: typed.js
   file: dist/typed.umd.js
-  version: 2.0.15
+  version: 2.1.0
 pangu:
   name: pangu
   file: dist/browser/pangu.min.js
@@ -120,17 +120,17 @@ pangu:
 fancybox_css:
   name: "@fancyapps/ui"
   file: dist/fancybox/fancybox.css
-  version: 5.0.20
+  version: 5.0.28
   other_name: fancyapps-ui
 fancybox:
   name: "@fancyapps/ui"
   file: dist/fancybox/fancybox.umd.js
-  version: 5.0.20
+  version: 5.0.28
   other_name: fancyapps-ui
 medium_zoom:
   name: medium-zoom
   file: dist/medium-zoom.min.js
-  version: 1.0.8
+  version: 1.1.0
 snackbar_css:
   name: node-snackbar
   file: dist/snackbar.min.css
@@ -182,11 +182,11 @@ prismjs_autoloader:
 artalk_js:
   name: artalk
   file: dist/Artalk.js
-  version: 2.5.5
+  version: 2.6.4
 artalk_css:
   name: artalk
   file: dist/Artalk.css
-  version: 2.5.5
+  version: 2.6.4
 pace_js:
   name: pace-js
   other_name: pace
@@ -195,7 +195,7 @@ pace_js:
 pace_default_css:
   name: anzhiyu-theme-static
   file: progress_bar/progress_bar.css
-  version: 1.0.0
+  version: 1.1.10
 coin_js:
   name: anzhiyu-theme-static
   file: coin/coin.js

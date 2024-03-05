@@ -1,7 +1,7 @@
 .comment-barrage {
   position: fixed;
   bottom: 0;
-  right: 20px;
+  right: 60px;
   padding: 0 0 20px 10px;
   z-index: 100;
   display: flex;
@@ -105,6 +105,7 @@
   font-weight: 400 !important;
   height: calc(100% - 30px);
   overflow: scroll;
+  cursor: pointer;
 }
 .comment-barrage-item .barrageContent::-webkit-scrollbar {
   height: 0;

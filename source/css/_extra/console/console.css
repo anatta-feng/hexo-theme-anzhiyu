@@ -8,12 +8,11 @@
   left: 0;
   justify-content: center;
   opacity: 0;
-  transition: 0.3s ease-out;
+  transition: 0.3s ease-out, color 0s;
   flex-direction: column;
   align-items: center;
   pointer-events: none;
   margin: 0 !important;
-  font-size: var(--global-font-size);
   z-index: 2;
 }
 #console-music-bg {
@@ -61,6 +60,7 @@
   height: 100%;
   width: 60%;
   overflow: hidden;
+  min-width: 575px;
 }
 
 #console .console-card {
@@ -114,6 +114,7 @@
   flex-direction: column;
   height: 150px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #card-newest-comments .aside-list-item:not(:last-child) {
@@ -130,14 +131,16 @@
 
 #console .author-content-item-tips {
   opacity: 0.8;
-  font-size: 0.6rem;
+  font-size: 12px;
   margin-bottom: 0.5rem;
+  color: var(--font-color);
 }
 
 #console .author-content-item-title {
   font-size: 27px;
   font-weight: 700;
   line-height: 1;
+  color: var(--font-color);
 }
 
 #console .aside-list-item .thumbnail {
@@ -169,14 +172,15 @@
 }
 
 #console .aside-list-item:hover .thumbnail,
-#console .aside-list-item:hover .content .comment {
+#console .aside-list-item:hover .content .comment,
+#console .aside-list-item:hover .content time {
   color: var(--anzhiyu-white);
 }
 
 #console .aside-list-item .content time {
   font-size: 12px;
   margin-top: auto;
-  color: var(--anzhiyu-white);
+  color: var(--anzhiyu-fontcolor);
 }
 
 #console .aside-list {
@@ -227,6 +231,8 @@
   margin-top: 1.5rem;
   display: flex;
   flex-wrap: wrap;
+  max-height: 230px;
+  overflow: hidden;
 }
 
 .console-card.tags .card-tag-cloud a {
@@ -256,6 +262,7 @@
   box-shadow: none;
   border: none;
   overflow: hidden;
+  min-width: 575px;
 }
 
 #console .console-card.history .item-headline {
@@ -265,17 +272,16 @@
 #console .console-card.history .card-archive-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 #console .console-card.history .card-archive-list li.card-archive-list-item {
-  flex: 0 0 24%;
+  flex: 0 0 25%;
 }
 
 #console .console-card.history .card-archive-list .card-archive-list-link {
   border-radius: 8px;
-  margin: 4px 0;
+  margin: 4px;
   display: flex;
   flex-direction: column;
   align-content: space-between;
@@ -291,6 +297,7 @@
 
 #console #card-newest-comments {
   height: 100%;
+  min-height: 580px;
 }
 
 #console .button-group i {
@@ -308,7 +315,7 @@
   list-style: none;
 }
 #console .console-card.history ul.card-archive-list {
-  margin: 2px;
+  margin: -4px;
 }
 
 [data-theme="dark"] #console .button-group .console-btn-item a.darkmode_switchbutton {
@@ -510,7 +517,7 @@ body:has(#console.show) #nav-music .aplayer .aplayer-lrc .aplayer-lrc-contents {
   margin-top: 80px;
 }
 
-@media screen and (min-width: 1201px) and (max-width: 1450px) {
+@media screen and (min-width: 1200px) and (max-width: 1450px) {
   body:has(#console.show) #nav-music {
     left: 45%;
   }
@@ -952,6 +959,9 @@ body:has(#console.show) #nav-music .aplayer .aplayer-lrc .aplayer-lrc-contents {
 @media screen and (max-width: 768px) {
   body:has(#console.show) #nav-music {
     width: 90%;
+  }
+  #center-console + label {
+    display: none;
   }
 }
 /* 歌词超出文本滚动动画 */

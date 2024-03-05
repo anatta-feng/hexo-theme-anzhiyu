@@ -10,7 +10,7 @@
             a.banner-button.secondary.no-text-decoration(onclick="friendChainRandomTransmission()")
               i.anzhiyufont.anzhiyu-icon-paper-plane1
               span.banner-button-text 随机访问
-          if theme.comment_barrage_config.enable && theme.comments.use == 'Twikoo'
+          if theme.linkPageTop.addFriendPlaceholder && theme.comments.use == 'Twikoo' && theme.twikoo.envId
             a.banner-button.no-text-decoration(onclick="anzhiyu.addFriendLink()")
               i.anzhiyufont.anzhiyu-icon-arrow-circle-right
               span.banner-button-text 申请友链
@@ -44,8 +44,8 @@
     .title-h2-a-right
       a.random-post-all.no-text-decoration(href='/link/') 全部友链
   #random-post
-
-  include ../anzhiyu/random-friends-post-js.pug
+  script(defer data-pjax src=url_for(theme.asset.random_friends_post_js))
+  
   .flink
     if site.data.link
       each i in site.data.link
@@ -70,15 +70,21 @@
                     span.site-card-tag(style=`background-color: ${color}`) #[=tag]
                   else if item.recommend
                     span.site-card-tag 荐
-                  a.cf-friends-link(href=url_for(item.link) title=item.name target="_blank")
-                    if theme.lazyload.enable
-                      img.cf-friends-avatar.no-lightbox(data-lazy-src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=item.name )
-                    else
-                      img.cf-friends-avatar.no-lightbox(src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=item.name )
-                    .flink-item-info
-                      if i.lost_contact
+                  if i.lost_contact
+                    a.cf-friends-link(href=url_for(item.link) title=item.name target="_blank")
+                      if theme.lazyload.enable
+                        img.no-lightbox(data-lazy-src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=item.name )
+                      else
+                        img.cf-friends-avatar.no-lightbox(src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=item.name )
+                      .flink-item-info
                         .flink-item-name.cf-friends-name-lost-contact= item.name
-                      else 
+                  else
+                    a.cf-friends-link(href=url_for(item.link) cf-href=url_for(item.link) title=item.name target="_blank")
+                      if theme.lazyload.enable
+                        img.cf-friends-avatar.no-lightbox(data-lazy-src=url_for(item.avatar), cf-src=url_for(item.avatar), onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=item.name )
+                      else
+                        img.cf-friends-avatar.no-lightbox(src=url_for(item.avatar) cf-src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=item.name )
+                      .flink-item-info
                         .flink-item-name.cf-friends-name= item.name
                         .flink-item-desc(title=item.descr)= item.descr
         
@@ -100,26 +106,26 @@
                   span.site-card-tag 荐
                 a.img.no-text-decoration(target='_blank', title=`${item.name}`, href=`${item.link}`, rel='external nofollow')
                   img.flink-avatar(data-lazy-src=siteshot, onerror=`this.onerror=null;this.src='${theme.default_img}'`, alt=item.name, style="pointer-events: none;", src=`${siteshot}`)
-                a.info.cf-friends-link.no-text-decoration(target='_blank', title=`${item.name}`, href=`${item.link}`, rel='external nofollow')
+                a.info.cf-friends-link.no-text-decoration(target='_blank', title=`${item.name}`, href=`${item.link}`, cf-href=url_for(item.link), rel='external nofollow')
                   .site-card-avatar
-                    img.flink-avatar.cf-friends-avatar.no-fancybox(data-lazy-src=item.avatar, onerror=`this.onerror=null;this.src='${theme.default_img}'`, alt=item.name, src=item.avatar)
+                    img.flink-avatar.cf-friends-avatar.no-fancybox(data-lazy-src=item.avatar, cf-src=url_for(item.avatar), onerror=`this.onerror=null;this.src='${theme.default_img}'`, alt=item.name, src=item.avatar)
                   .site-card-text
                     span.title.cf-friends-name #[=item.name]
                     span.desc(title=`${item.descr}`) #[=item.descr]
         else if i.flink_style === 'flexcard'
           .flexcard-flink-list
             each item in i.link_list
-              a.flink-list-card.cf-friends-link(href=url_for(item.link) target='_blank' data-title=item.descr)
+              a.flink-list-card.cf-friends-link(href=url_for(item.link) cf-href=url_for(item.link) target='_blank' data-title=item.descr)
                 .wrapper.cover
                   - var siteshot = item.siteshot ? url_for(item.siteshot) : 'https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/' + item.link
                   if theme.lazyload.enable
-                    img.cover.fadeIn(data-lazy-src=siteshot onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.post_page) + `'` alt='' )
+                    img.cover.fadeIn(data-lazy-src=siteshot onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.post_page) + `'` alt='cover' )
                   else
-                    img.cover.fadeIn(src=siteshot onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.post_page) + `'` alt='' )    
+                    img.cover.fadeIn(src=siteshot onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.post_page) + `'` alt='cover' )    
                 .info
                   if theme.lazyload.enable
-                    img.cf-friends-avatar.no-lightbox.flink-avatar(data-lazy-src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt='' )
+                    img.cf-friends-avatar.no-lightbox.flink-avatar(data-lazy-src=url_for(item.avatar) cf-src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt='cover' )
                   else
-                    img.cf-friends-avatar.no-lightbox(src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt='' )
+                    img.cf-friends-avatar.no-lightbox(src=url_for(item.avatar) cf-src=url_for(item.avatar) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt='cover' )
                   span.flink-sitename.cf-friends-name= item.name
     != page.content

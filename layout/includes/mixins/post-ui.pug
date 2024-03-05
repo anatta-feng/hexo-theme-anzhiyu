@@ -16,59 +16,52 @@ mixin postUI(posts)
         let no_cover = article.cover === false || !theme.cover.index_enable ? 'no-cover' : ''
       -
       - const new_post = is_current('/') && (maxDate === article.date)
-      if (theme.post_meta.page.categories && article.categories.data.length > 0)
-        .article-meta__categories__box(style=`${(new_post && !theme.cover.index_enable) ? "left: 95px":""}`)
-          each item, index in article.categories.data
-            a(href=url_for(item.path)).article-meta__categories #[=item.name]
-          a.unvisited-post(href=url_for(link) title=title style=`${(!theme.cover.index_enable) ? "position: static;": new_post ? (theme.article_double_row ? (is_home() && (article.top || article.sticky > 0)) ? "left: 135px;" : "left: 90px;" : (is_home() && (article.top || article.sticky > 0)) ? "left: calc(44% + 130px);" : "left: calc(44% + 82px);") : ""}`) 未读
-      else 
-        - let unvisitedleft = null
-        if (new_post && theme.cover.index_enable)
-          - unvisitedleft = "90px"
-        if (is_home() && (article.top || article.sticky > 0))
-          - unvisitedleft = "calc(44% + 75px)"
-        if (is_home() && (article.top || article.sticky > 0)) && theme.article_double_row
-          - unvisitedleft = "80px"
-        else if (new_post && theme.cover.index_enable) && (is_home() && (article.top || article.sticky > 0))
-          - unvisitedleft = "calc(44% + 130px)"
-        if (new_post && theme.cover.index_enable) && (is_home() && (article.top || article.sticky > 0)) && theme.article_double_row
-          - unvisitedleft = "135px"
-        a.unvisited-post(href=url_for(link) title=title style=`${unvisitedleft ? `left: ${unvisitedleft};` : ''}`) 未读
+
       if post_cover && theme.cover.index_enable
         .post_cover(class=leftOrRight)
           a(href=url_for(link) title=title style='display: flex;height: 100%;')
             img.post_bg(src=url_for(post_cover) onerror=`this.onerror=null;this.src='`+ url_for(theme.error_img.post_page) + `'` alt=title style='pointer-events: none')
+
       .recent-post-info(class=no_cover)
-        if new_post
-          span.newPost(style=`${(is_home() && (article.top || article.sticky > 0)) ? 'left: 80px': ''}`) 最新文章
-        a.article-title(href=url_for(link) title=title)= title
+        .recent-post-info-top
+          .recent-post-info-top-tips
+            if (is_home() && (article.top || article.sticky > 0))
+              span.article-meta.sticky-warp
+                i.anzhiyufont.anzhiyu-icon-thumbtack.sticky
+                span.sticky= _p('sticky')
+            if (theme.post_meta.page.categories && article.categories.data.length > 0)
+              each item, index in article.categories.data
+                .article-categories-original=item.name
+            if new_post
+              span.newPost 最新
+            a.unvisited-post(href=url_for(link) title=title) 未读
+          a.article-title(href=url_for(link) title=title)= title
         .article-meta-wrap
-          if (is_home() && (article.top || article.sticky > 0))
-            span.article-meta.sticky-warp
-              i.anzhiyufont.anzhiyu-icon-thumbtack.sticky
-              span.sticky= _p('sticky')
           if (theme.post_meta.page.date_type)
             span.post-meta-date
               if (theme.post_meta.page.date_type === 'both')
                 i.anzhiyufont.anzhiyu-icon-calendar-alt(style=`${theme.post_meta.page.date_format==="simple" ? "display:none":""}`)
                 span.article-meta-label=_p('post.created')
-                time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date))=date(article.date, config.date_format)
+                time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date) time=full_date(article.date))=date(article.date, config.date_format)
                 span.article-meta-separator
                 i.anzhiyufont.anzhiyu-icon-history(style=`font-size: 15px; ${theme.post_meta.page.date_format==="simple" ? "display:none":""}`)
                 span.article-meta-label=_p('post.updated')
-                time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated))=date(article.updated, config.date_format)
+                time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated) time=full_date(article.updated))=date(article.updated, config.date_format)
               else
                 - let data_type_updated = theme.post_meta.page.date_type === 'updated'
                 - let date_type = data_type_updated ? 'updated' : 'date'
+                - let date_type_other = data_type_updated ? 'date' : 'updated'
                 - let date_icon = data_type_updated ? 'anzhiyu-icon-history' :'anzhiyu-icon-calendar-days'
                 - let date_title = data_type_updated ? _p('post.updated') : _p('post.created')
+                - let date_title_other = data_type_updated ? _p('post.created') : _p('post.updated')
                 i.anzhiyufont(class=date_icon style=`font-size: 15px; ${theme.post_meta.page.date_format==="simple" ? "display:none":""}`)
                 span.article-meta-label=date_title
-                time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type]))=date(article[date_type], config.date_format)
+                time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type])  time=full_date(article[date_type]))=date(article[date_type], config.date_format)
+                time(datetime=date_xml(article[date_type_other]), class="time_hidden", title=date_title_other + ' ' + full_date(article[date_type_other]) time=full_date(article[date_type_other]))=date(article[date_type_other], config.date_format)
           if (theme.post_meta.page.tags && article.tags.data.length > 0)
             span.article-meta.tags
               each item, index in article.tags.data
-                a(href=url_for(item.path) tabindex="-1").article-meta__tags
+                a(href=url_for(item.path) event.cancelbubble onclick="window.event.cancelBubble=true;").article-meta__tags
                   span 
                     i.anzhiyufont.anzhiyu-icon-hashtag
                     =item.name
